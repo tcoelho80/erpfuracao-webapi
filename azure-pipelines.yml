@@ -1,0 +1,61 @@
+trigger:
+- main
+
+pool:
+  name: Azure Pipelines
+
+
+stages:
+- stage: DEV
+  jobs:
+  - job: DEV
+    steps:
+    - task: Docker@0
+      displayName: 'Build to dev'
+      inputs:
+        azureSubscription: 'Alsofer (ae005c87-34e4-41e9-9423-ee300e943e97)'
+        azureContainerRegistry: '{"loginServer":"erpfuracaoalsoferdev.azurecr.io", "id" : "/subscriptions/ae005c87-34e4-41e9-9423-ee300e943e97/resourceGroups/erpfuracaoalsofer-infra-dev/providers/Microsoft.ContainerRegistry/registries/erpfuracaoalsoferdev"}'
+        dockerFile: Dockerfile
+        imageName: 'erpfuracao-webapi:dev'
+
+    - task: Docker@0
+      displayName: 'Push to dev'
+      inputs:
+        azureSubscription: 'Alsofer (ae005c87-34e4-41e9-9423-ee300e943e97)'
+        azureContainerRegistry: '{"loginServer":"erpfuracaoalsoferdev.azurecr.io", "id" : "/subscriptions/ae005c87-34e4-41e9-9423-ee300e943e97/resourceGroups/erpfuracaoalsofer-infra-dev/providers/Microsoft.ContainerRegistry/registries/erpfuracaoalsoferdev"}'
+        action: 'Push an image'
+        imageName: 'erpfuracao-webapi:dev'
+
+- stage: PREPROD
+  jobs:
+   - deployment: PREPROD
+     displayName: 'PRE-PROD'
+     environment: 'pre-prod'
+     strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: Docker@0
+              displayName: 'Pull dev image'
+              inputs:
+                containerregistrytype: 'Azure Container Registry'
+                azureSubscription: 'Alsofer (ae005c87-34e4-41e9-9423-ee300e943e97)'
+                azureContainerRegistry: '{"loginServer":"erpfuracaoalsoferdev.azurecr.io", "id" : "/subscriptions/ae005c87-34e4-41e9-9423-ee300e943e97/resourceGroups/erpfuracaoalsofer-infra-dev/providers/Microsoft.ContainerRegistry/registries/erpfuracaoalsoferdev"}'
+                action: 'Run a Docker command'
+                customCommand: 'pull erpfuracaoalsoferdev.azurecr.io/erpfuracao-webapi:dev'
+            - task: Docker@0
+              displayName: 'Tag image'
+              inputs:
+                containerregistrytype: 'Azure Container Registry'
+                azureSubscription: 'Alsofer (ae005c87-34e4-41e9-9423-ee300e943e97)'
+                azureContainerRegistry: '{"loginServer":"erpfuracaoalsoferdev.azurecr.io", "id" : "/subscriptions/ae005c87-34e4-41e9-9423-ee300e943e97/resourceGroups/erpfuracaoalsofer-infra-dev/providers/Microsoft.ContainerRegistry/registries/erpfuracaoalsoferdev"}'
+                action: 'Run a Docker command'
+                customCommand: 'tag erpfuracaoalsoferdev.azurecr.io/erpfuracao-webapi:dev erpfuracaoalsoferdev.azurecr.io/erpfuracao-webapi:pre-prod'
+
+            - task: Docker@0
+              displayName: 'Push to pre-prod'
+              inputs:
+                azureSubscription: 'Alsofer (ae005c87-34e4-41e9-9423-ee300e943e97)'
+                azureContainerRegistry: '{"loginServer":"erpfuracaoalsoferdev.azurecr.io", "id" : "/subscriptions/ae005c87-34e4-41e9-9423-ee300e943e97/resourceGroups/erpfuracaoalsofer-infra-dev/providers/Microsoft.ContainerRegistry/registries/erpfuracaoalsoferdev"}'
+                action: 'Push an image'
+                imageName: 'erpfuracao-webapi:pre-prod'

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ERP.Furacao.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:ERP.Furacao.WebApi.Controllers.v1.Accounts.AccountController">
+            <summary>
+            Account Controller
+            </summary>
+        </member>
+        <member name="T:ERP.Furacao.WebApi.Controllers.v1.Contas.ContasController">
+            <summary>
+            Conta Controller
+            </summary>
+        </member>
+        <member name="T:ERP.Furacao.WebApi.Controllers.v1.Fornecedores.FornecedoresController">
+            <summary>
+            Conta Controller
+            </summary>
+        </member>
+        <member name="T:ERP.Furacao.WebApi.Controllers.v1.Logs.LogsController">
+            <summary>
+            Conta Controller
+            </summary>
+        </member>
+        <member name="T:ERP.Furacao.WebApi.Controllers.v1.Pagamentos.PagamentosController">
+            <summary>
+            Conta Controller
+            </summary>
+        </member>
+    </members>
+</doc>
