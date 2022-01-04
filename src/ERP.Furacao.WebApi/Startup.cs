@@ -1,4 +1,5 @@
 using ERP.Furacao.WebApi.Extensions;
+using ERP.Furacao.WebApi.Middleware;
 using ERP.Furacao.WebApi.Setup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,12 +41,8 @@ namespace ERP.Furacao.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
 
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();

@@ -9,7 +9,7 @@ namespace ERP.Furacao.Infrastructure.Data.Settings
     public class DapperDbSettings
     {
         private IDbStrategy _dbStrategy;
-        public ProviderTypeEnum ProviderType { get; set; } = ProviderTypeEnum.SqlServer;
+        public ProviderTypeEnum ProviderType { get; set; } = ProviderTypeEnum.Oracle;
         public string SqlServerConnectionString { get; set; }
         public string OracleConnectionString { get; set; }
 

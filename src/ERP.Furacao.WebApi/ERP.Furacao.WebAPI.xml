@@ -29,5 +29,50 @@
             Conta Controller
             </summary>
         </member>
+        <member name="M:ERP.Furacao.WebApi.Converters.IActionResultConverter.CreatedResult(System.Object)">
+            <summary>
+            HTTP 201
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERP.Furacao.WebApi.Converters.IActionResultConverter.OkObjectResult(System.Object)">
+            <summary>
+            HTTP 200
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERP.Furacao.WebApi.Converters.IActionResultConverter.AcceptedResult(System.Object)">
+            <summary>
+            HTTP 202
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERP.Furacao.WebApi.Converters.IActionResultConverter.BusinessErrorResult(System.String[])">
+            <summary>
+            HTTP 422
+            </summary>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERP.Furacao.WebApi.Converters.IActionResultConverter.BusinessErrorResult(System.Object,System.String[])">
+            <summary>
+            HTTP 422
+            </summary>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ERP.Furacao.WebApi.Converters.IActionResultConverter.PaginatedObjectResult(System.Object,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            HTTP 200
+            </summary>
+            <param name="data"></param>
+            <param name="totalItens"></param>
+            <param name="page"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

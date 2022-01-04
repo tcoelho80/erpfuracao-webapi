@@ -5,6 +5,7 @@ using ERP.Furacao.Infrastructure.Crosscutting.Interfaces.Logs;
 using ERP.Furacao.Infrastructure.Crosscutting.Services.Logs;
 using ERP.Furacao.Infrastructure.Data.Repositories;
 using ERP.Furacao.Infrastructure.Data.Settings;
+using ERP.Furacao.WebApi.Converters;
 using ERP.Furacao.WebApi.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,7 @@ namespace ERP.Furacao.WebApi.Setup
             services.AddSingleton(opt => ServiceProvider.GetRequiredService<IOptions<DapperDbSettings>>().Value);
             services.AddSingleton<ILogService, LogService>();
             services.AddSingleton<ILogDapperRepository, LogDapperRepository>();
+            services.AddScoped<IActionResultConverter, ActionResultConverter>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

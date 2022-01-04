@@ -4,6 +4,9 @@ using ERP.Furacao.Domain.Settings;
 using ERP.Furacao.Infrastructure.Crosscutting.Interfaces.Logs;
 using ERP.Furacao.Infrastructure.Data.Contexts;
 using ERP.Furacao.Infrastructure.Data.Repositories;
+using ERP.Furacao.Infrastructure.Data.Repositoriess;
+using ERP.Furacao.Infrastructure.Data.Services;
+using ERP.Furacao.Infrastructure.Data.Settings;
 using ERP.Furacao.Infrastructure.Identity.Contexts;
 using ERP.Furacao.Infrastructure.Identity.Models;
 using ERP.Furacao.Infrastructure.Identity.Repositories;
@@ -153,7 +156,17 @@ namespace ERP.Furacao.WebApi.Extensions
             services.AddSingleton(typeof(IEntityRepository<>), typeof(EntityBaseRepository<>));
             services.AddTransient(typeof(IDapperRepository<>), typeof(DapperBaseRepository<>));
             services.AddTransient(typeof(IIdentityRepository<>), typeof(IdentityRepository<>));
+            services.AddTransient<IFornecedorItemRepository, FornecedorItemRepository>();
             #endregion
+
+            #region Services
+            var excelReaderSettings = new ExcelReaderSettings();
+            configuration.GetSection("ExcelReaderSettings").Bind(excelReaderSettings);
+
+            services.AddSingleton(excelReaderSettings);
+            services.AddTransient<IExcelReaderService, ExcelReaderService>();
+            #endregion
+
         }
     }
 }
